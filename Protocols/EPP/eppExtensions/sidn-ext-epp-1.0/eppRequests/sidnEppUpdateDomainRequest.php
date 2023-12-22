@@ -39,17 +39,54 @@ class sidnEppUpdateDomainRequest extends eppUpdateDomainRequest {
         $this->setForcehostattr($forcehostattr);
     }
 
-    public function scheduledDelete($operation, $date = null) {
-        $scheduledDelete = $this->createElement('scheduledDelete:update');
-        $scheduledDelete->setAttribute('xmlns:scheduledDelete','http://rxsd.domain-registry.nl/sidn-ext-epp-scheduled-delete-1.0');
-        $scheduledDelete->appendChild($this->createElement('scheduledDelete:operation', $operation));
-        if (!empty($date)) {
-            $scheduledDelete->appendChild($this->createElement('scheduledDelete:date', $operation));
-        }
-        $this->getExtension()->appendChild($scheduledDelete);
+   public function scheduledDelete($operation, $date = null) {
+       $scheduledDelete = $this->createElement('scheduledDelete:update');
+       $scheduledDelete->setAttribute('xmlns:scheduledDelete','http://rxsd.domain-registry.nl/sidn-ext-epp-scheduled-delete-1.0');
+       $scheduledDelete->appendChild($this->createElement('scheduledDelete:operation', $operation));
+       if (!empty($date)) {
+           $scheduledDelete->appendChild($this->createElement('scheduledDelete:date', $operation));
+       }
+       $this->getExtension()->appendChild($scheduledDelete);
+       // session id needs to be added after the extension
+       $this->addSessionId();
+   }
 
-        // session id needs to be added after the extension
-        $this->addSessionId();
-    }
+   public function removeReseller($reseller_id) {
+
+       $resellerRem = $this->createElement('resellerExt:rem');
+       $resellerRem->appendChild($this->createElement('resellerExt:id', $reseller_id));
+
+       if ($resellerExt = $this->getExtension()->getElementsByTagName('resellerExt:update')->item(0)) {
+           $resellerExt->appendChild($resellerRem);
+       } else {
+           $resellerExt = $this->createElement('resellerExt:update');
+           $resellerExt->setAttribute('xmlns:resellerExt','http://rxsd.domain-registry.nl/sidn-ext-epp-reseller-1.0');
+           $resellerExt->appendChild($resellerRem);
+       }
+
+       $this->getExtension()->appendChild($resellerExt);
+
+       // session id needs to be added after the extension
+       $this->addSessionId();
+   }
+
+   public function addReseller($reseller_id) {
+
+       $resellerAdd = $this->createElement('resellerExt:add');
+       $resellerAdd->appendChild($this->createElement('resellerExt:id', $reseller_id));
+
+       if ($resellerExt = $this->getExtension()->getElementsByTagName('resellerExt:update')->item(0)) {
+           $resellerExt->appendChild($resellerAdd);
+       } else {
+           $resellerExt = $this->createElement('resellerExt:update');
+           $resellerExt->setAttribute('xmlns:resellerExt','http://rxsd.domain-registry.nl/sidn-ext-epp-reseller-1.0');
+           $resellerExt->appendChild($resellerAdd);
+       }
+
+       $this->getExtension()->appendChild($resellerExt);
+
+       // session id needs to be added after the extension
+       $this->addSessionId();
+   }
 
 }

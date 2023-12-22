@@ -1,7 +1,7 @@
 <?php
 namespace Metaregistrar\EPP;
 
-class sidnEppInfoDomainResponse extends eppInfoDomainResponse {
+class sidnEppInfoDomainResponse extends eppDnssecInfoDomainResponse {
     function __construct() {
         parent::__construct();
     }
@@ -56,6 +56,20 @@ class sidnEppInfoDomainResponse extends eppInfoDomainResponse {
     public function getDomainDeleteDate() {
         $xpath = $this->xPath();
         $result = $xpath->query('/epp:epp/epp:response/epp:extension/sidn-ext-epp:ext/sidn-ext-epp:infData/sidn-ext-epp:domain/sidn-ext-epp:scheduledDeleteDate');
+        if ($result->length > 0) {
+            return $result->item(0)->nodeValue;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     *
+     * @return string ResellerId|null
+     */
+    public function getResellerId() {
+        $xpath = $this->xPath();
+        $result = $xpath->query('/epp:epp/epp:response/epp:extension/resellerExt:infData/resellerExt:id');
         if ($result->length > 0) {
             return $result->item(0)->nodeValue;
         } else {

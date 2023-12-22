@@ -29,5 +29,17 @@ $this->addCommandResponse('Metaregistrar\EPP\sidnEppInfoDomainRequest', 'Metareg
 include_once(dirname(__FILE__) . '/eppRequests/sidnEppUpdateDomainRequest.php');
 $this->addCommandResponse('Metaregistrar\EPP\sidnEppUpdateDomainRequest', 'Metaregistrar\EPP\eppUpdateDomainResponse');
 
+include_once(dirname(__FILE__) . '/eppRequests/sidnEppInfoResellerRequest.php');
+include_once(dirname(__FILE__) . '/eppResponses/sidnEppInfoResellerResponse.php');
+$this->addCommandResponse('Metaregistrar\EPP\sidnEppInfoResellerRequest', 'Metaregistrar\EPP\sidnEppInfoResellerResponse');
+
+include_once(dirname(__FILE__) . '/eppRequests/sidnEppCreateResellerRequest.php');
+include_once(dirname(__FILE__) . '/eppResponses/sidnEppCreateResellerResponse.php');
+$this->addCommandResponse('Metaregistrar\EPP\sidnEppCreateResellerRequest', 'Metaregistrar\EPP\sidnEppCreateResellerResponse');
+
+include_once(dirname(__FILE__) . '/eppRequests/sidnEppUpdateResellerRequest.php');
+$this->addCommandResponse('Metaregistrar\EPP\sidnEppUpdateResellerRequest', 'Metaregistrar\EPP\eppInfoResponse');
+
 include_once(dirname(__FILE__) . '/eppExceptions/sidnEppException.php');
 $this->addException('Metaregistrar\EPP\sidnEppException');
+
