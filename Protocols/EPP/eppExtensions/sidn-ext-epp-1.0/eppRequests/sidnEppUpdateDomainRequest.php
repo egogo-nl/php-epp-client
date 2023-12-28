@@ -21,7 +21,7 @@ namespace Metaregistrar\EPP;
 
 class sidnEppUpdateDomainRequest extends eppUpdateDomainRequest {
 
-    function __construct($objectname, $addinfo = null, $removeinfo = null, $updateinfo = null, $forcehostattr = true, $namespacesinroot = true, $usecdata = true) {
+    function __construct($objectname, $addinfo = null, $removeinfo = null, $updateinfo = null, $forcehostattr = false, $namespacesinroot = true, $usecdata = true) {
         $this->setNamespacesinroot($namespacesinroot);
         $this->setForcehostattr($forcehostattr);
         eppDomainRequest::__construct(eppRequest::TYPE_UPDATE);
@@ -44,7 +44,7 @@ class sidnEppUpdateDomainRequest extends eppUpdateDomainRequest {
        $scheduledDelete->setAttribute('xmlns:scheduledDelete','http://rxsd.domain-registry.nl/sidn-ext-epp-scheduled-delete-1.0');
        $scheduledDelete->appendChild($this->createElement('scheduledDelete:operation', $operation));
        if (!empty($date)) {
-           $scheduledDelete->appendChild($this->createElement('scheduledDelete:date', $operation));
+           $scheduledDelete->appendChild($this->createElement('scheduledDelete:date', $date));
        }
        $this->getExtension()->appendChild($scheduledDelete);
        // session id needs to be added after the extension
