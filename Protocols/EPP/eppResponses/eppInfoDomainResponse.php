@@ -109,7 +109,7 @@ class eppInfoDomainResponse extends eppInfoResponse {
                 if ($contacttype) {
                     // DNSBE specific, but too much hassle to create an override for this
                     if ($contacttype == 'onsite') {
-                        $contacttype = 'admin';
+                        $contacttype = 'tech';
                     }
                     $cont[] = new eppContactHandle($contact->nodeValue, $contacttype);
                 }

@@ -117,7 +117,7 @@ class eppCreateDomainRequest extends eppDomainRequest {
         if ($domain->getContactLength() > 0) {
             foreach ($contacts as $contact) {
                 /* @var $contact eppContactHandle */
-                if (in_array($contact->getContactType(),[eppContactHandle::CONTACT_TYPE_ADMIN,eppContactHandle::CONTACT_TYPE_BILLING,eppContactHandle::CONTACT_TYPE_TECH])) {
+                if (in_array($contact->getContactType(),[eppContactHandle::CONTACT_TYPE_ADMIN,eppContactHandle::CONTACT_TYPE_BILLING,eppContactHandle::CONTACT_TYPE_TECH,eppContactHandle::CONTACT_TYPE_ONSITE])) {
                     $this->addDomainContact($this->domainobject, $contact->getContactHandle(), $contact->getContactType());
                 }
             }

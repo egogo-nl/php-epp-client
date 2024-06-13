@@ -31,5 +31,16 @@ class orgextEppUpdateDomainRequest extends eppUpdateDomainRequest {
         $this->getExtension()->appendChild($element);
         $this->addSessionId();
     }
+    public function addReseller($id) {
+        $this->addExtension('xmlns:orgext', 'urn:ietf:params:xml:ns:epp:orgext-1.0');
+        $element = $this->createElement('orgext:update');
+        $remove = $this->createElement('orgext:add');
+        $id = $this->createElement('orgext:id', $id);
+        $id->setAttribute('role','reseller');
+        $remove->appendChild($id);
+        $element->appendChild($remove);
+        $this->getExtension()->appendChild($element);
+        $this->addSessionId();
+    }
 
 }

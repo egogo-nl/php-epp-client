@@ -7,7 +7,7 @@ use phpseclib3\Math\BigInteger\Engines\PHP;
  * Class dnsbeEppInfoDomainResponse
  * @package Metaregistrar\EPP
  */
-class dnsbeEppInfoDomainResponse extends eppInfoDomainResponse {
+class dnsbeEppInfoDomainResponse extends eppDnssecInfoDomainResponse {
     function __construct() {
         parent::__construct();
     }
@@ -50,12 +50,39 @@ class dnsbeEppInfoDomainResponse extends eppInfoDomainResponse {
         }
     }
 
+    public function getNameserversOverridden() {
+        $xpath = $this->xPath();
+        $result = $xpath->query('/epp:epp/epp:response/epp:extension/dnsbe:ext/dnsbe:infData/dnsbe:domain/dnsbe:nameserversOverridden');
+        if ($result->length > 0) {
+            if ($result->item(0)->nodeValue == 'true') {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return null;
+        }
+    }
+
     /**
      * @return null|string
      */
     public function getDomainDeletionDate() {
         $xpath = $this->xPath();
         $result = $xpath->query('/epp:epp/epp:response/epp:extension/dnsbe:ext/dnsbe:infData/dnsbe:domain/dnsbe:deletionDate');
+        if ($result->length > 0) {
+            return $result->item(0)->nodeValue;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getResellerId() {
+        $xpath = $this->xPath();
+        $result = $xpath->query('/epp:epp/epp:response/epp:extension/orgext:infData/orgext:id');
         if ($result->length > 0) {
             return $result->item(0)->nodeValue;
         } else {

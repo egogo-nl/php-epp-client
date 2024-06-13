@@ -30,7 +30,7 @@ class authEppInfoDomainResponse extends eppInfoDomainResponse {
             if ($contacttype) {
                 // EURID specific
                 if ($contacttype == 'onsite') {
-                    $contacttype = 'admin';
+                    $contacttype = 'tech';
                 }
                 $cont[] = new eppContactHandle($contact->nodeValue, $contacttype);
             }

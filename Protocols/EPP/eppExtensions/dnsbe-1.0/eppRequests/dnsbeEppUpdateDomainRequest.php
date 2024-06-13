@@ -60,6 +60,12 @@ class dnsbeEppUpdateDomainRequest extends eppUpdateDomainRequest {
       $this->addSessionId();
    }
 
+    public function activateDomainLock() {
+
+        $ext = $this->createElement('extension');
+
+    }
+
    public function updatensgroup($addnsgroup = null, $removensgroup = null) {
       $this->addExtension('xmlns:dnsbe', 'http://www.dns.be/xml/epp/dnsbe-1.0');
       $ext = $this->createElement('extension');
